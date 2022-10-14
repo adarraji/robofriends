@@ -5,10 +5,12 @@ const initialState = {
 };
 
 export const searchRobots = (state = initialState, action = {}) => {
-    switch (action.payload) {
-        case CHANGE_SEARCH_FIELD:
+    switch (action.type) {
+        case CHANGE_SEARCH_FIELD: {
             return { ...state, searchField: action.payload };
-        default:
+        }
+        default: {
             return state;
+        }
     }
 }
