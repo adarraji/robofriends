@@ -5,38 +5,35 @@ import CardList from "../components/CardList";
 import Scroll from "../components/Scroll";
 import SearchBox from "../components/SearchBox"
 import ErrorBoundry from "../components/ErrorBoundry";
-import { setSearchField } from "../actions";
+import { setSearchField, requestrobots } from "../actions";
 
 const mapStateToProps = state => {
     return {
-        searchField: state.searchField
+        searchField: state.searchRobots.searchField,
+        robots: state.requestRobots.robots,
+        isPending: state.requestRobots.isPending,
+        error: state.requestRobots.error,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+        onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+        onRequestRobots: () => dispatch(requestrobots())
     }
 }
 
 class App extends Component {
-    constructor() {
-        super();
-        this.state = {
-            robots: [],
-        };
-    }
 
     componentDidMount() {
-        fetch("https://jsonplaceholder.typicode.com/users").then(repsonse => repsonse.json()).then(data => this.setState({ robots: data }));
+        this.props.onRequestRobots();
     }
 
     render() {
-        const { robots } = this.state;
-        const { searchField, onSearchChange } = this.props;
+        const { searchField, onSearchChange, robots, isPending } = this.props;
         const filteredRobots = robots.filter(robot => robot.name.toLowerCase().includes(searchField.toLowerCase()));
 
-        return !robots.length ? <h1>Loading</h1> :
+        return isPending ? <h1>Loading</h1> :
             (
 
                 <div className="tc" >
