@@ -20,7 +20,7 @@ const App = () => {
 
     useEffect(() => {
         dispatch(requestrobots());
-    }, []);
+    }, [dispatch]);
 
     const filteredRobots = robots.filter(robot => robot.name.toLowerCase().includes(searchField.toLowerCase()));
 
