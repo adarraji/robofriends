@@ -6,6 +6,7 @@ import Scroll from "../components/Scroll";
 import SearchBox from "../components/SearchBox"
 import ErrorBoundry from "../components/ErrorBoundry";
 import { setSearchField, requestrobots } from "../actions";
+import CounterButton from "../components/CounterButton";
 
 const App = () => {
     const searchField = useSelector(state => state.searchRobots.searchField);
@@ -28,6 +29,7 @@ const App = () => {
         (
 
             <div className="tc" >
+                <CounterButton />
                 <h1 className="f1">RoboFriends</h1>
                 <SearchBox searchChange={onSearchChange} />
                 <Scroll>
